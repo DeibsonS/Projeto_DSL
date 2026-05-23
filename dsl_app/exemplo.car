@@ -1,0 +1,12 @@
+
+acelerar(30)
+enquanto (distancia_frente > 5) {
+    manter_velocidade
+    se (distancia_lateral < 3) entao {
+        virar(direita, 20)
+    } senao {
+        virar(esquerda, 10)
+    }
+}
+frear(50)
+parar

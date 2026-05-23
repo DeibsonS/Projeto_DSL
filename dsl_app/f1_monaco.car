@@ -1,0 +1,45 @@
+
+# GP de Mônaco - Volta Rápida (Circuito Mais Curto da F1)
+# Esta DSL simula o comportamento reativo de um piloto na pista de rua mais estreita do mundo.
+
+# Largada na Sainte-Dévote
+acelerar(100)
+
+enquanto (velocidade > 0) {
+    # Alerta de Colisão (Outros carros ou Muros da Piscine)
+    se (obstaculo == 1) entao {
+        frear(90)
+        virar(esquerda, 30)
+    }
+
+    # Curva Loews (Hairpin) - A curva mais lenta da Formula 1
+    # Detectada por baixíssima distância frontal
+    se (distancia_frente < 10) entao {
+        frear(95)
+        virar(direita, 120) # Curva em 'U'
+        acelerar(40)
+    } senao {
+        # Curvas de Média Velocidade (Ex: Mirabeau ou Rascasse)
+        se (distancia_frente < 30) entao {
+            frear(50)
+            virar(direita, 45)
+            acelerar(30)
+        } senao {
+            # Seção de Alta: Túnel e Reta dos Boxes
+            se (velocidade < 100) entao {
+                acelerar(20)
+            } senao {
+                manter_velocidade
+            }
+        }
+    }
+
+    # Controle de Linha de Corrida (Evitando Guard-Rails)
+    se (distancia_lateral < 3) entao {
+        virar(esquerda, 5) # Pequeno ajuste para o centro da pista
+    }
+}
+
+# Fim da Volta / Bandeirada
+frear(100)
+parar
